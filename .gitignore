@@ -84,6 +84,8 @@ nbproject
 public/uploads/*
 !public/uploads/.gitkeep
 .env
+docker-compose.override.yml
+local.Dockerfile
 
 ############################
 # Node.js

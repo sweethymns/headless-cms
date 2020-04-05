@@ -1,0 +1,40 @@
+version: '3.7'
+
+services:
+  mysql:
+    container_name: sweethymns-mysql
+    image: mariadb:10.4.12
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+    networks:
+      - sweethymns_net
+    ports:
+      - '3306:3306'
+    restart: always
+    volumes:
+      - './data/db:/var/lib/mysql:delegated'
+
+  strapi:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: sweethymns-strapi
+    depends_on:
+      - mysql
+    environment:
+      DATABASE_NAME: ${DB_NAME}
+      DATABASE_HOST: mysql
+      DATABASE_PORT: 3306
+      DATABASE_USERNAME: ${DB_USER}
+      DATABASE_PASSWORD: ${DB_PASSWORD}
+    networks:
+      - sweethymns_net
+    ports:
+      - '1337:1337'
+    restart: always
+
+networks:
+  sweethymns_net:
