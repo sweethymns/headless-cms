@@ -30,6 +30,7 @@ services:
       DATABASE_PORT: 3306
       DATABASE_USERNAME: ${DB_USER}
       DATABASE_PASSWORD: ${DB_PASSWORD}
+      JWT_SECRET: ${JWT_SECRET}
     networks:
       - sweethymns_net
     ports:
